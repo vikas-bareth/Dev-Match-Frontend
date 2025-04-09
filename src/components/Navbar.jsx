@@ -1,4 +1,6 @@
 import React from "react";
+import ThemeController from "./common/ThemeController";
+import DropdownThemeController from "./common/DropDownThemeController";
 
 const Navbar = () => {
   return (
@@ -69,6 +71,12 @@ const Navbar = () => {
             </li>
             <li>
               <a>Logout</a>
+            </li>
+            <li>
+              <a>
+                <span>Change Theme:</span>
+                <ThemeController />
+              </a>
             </li>
           </ul>
         </div>
