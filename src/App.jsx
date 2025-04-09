@@ -6,7 +6,7 @@ import Profile from "./components/Profile";
 
 function App() {
   return (
-    <>
+    <div className="h-screen">
       <Navbar />
       <BrowserRouter basename="/">
         <Routes>
@@ -16,7 +16,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 
