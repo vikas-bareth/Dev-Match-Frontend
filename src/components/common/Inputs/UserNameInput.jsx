@@ -1,6 +1,6 @@
 import React from "react";
 
-const UserNameInput = () => {
+const UserNameInput = ({ value, setValue }) => {
   return (
     <div>
       <label className="input validator">
@@ -21,10 +21,14 @@ const UserNameInput = () => {
           </g>
         </svg>
         <input
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+          }}
           type="input"
           required
           placeholder="Username"
-          pattern="[A-Za-z][A-Za-z0-9\-]*"
+          // pattern="[A-Za-z][A-Za-z0-9\-]*"
           minlength="3"
           maxlength="30"
           title="Only letters, numbers or dash"

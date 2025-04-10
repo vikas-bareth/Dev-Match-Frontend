@@ -1,6 +1,6 @@
 import React from "react";
 
-const PasswordInput = () => {
+const PasswordInput = ({ value, setValue }) => {
   return (
     <div>
       <label className="input validator">
@@ -21,6 +21,10 @@ const PasswordInput = () => {
           </g>
         </svg>
         <input
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+          }}
           type="password"
           required
           placeholder="Password"
