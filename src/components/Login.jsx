@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SideImageCard from "./common/SideImageCard";
 import UserNameInput from "./common/Inputs/UserNameInput";
 import PasswordInput from "./common/Inputs/PasswordInput";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { addUser } from "../utils/userSlice";
+import { addUser, removeUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
+import { APP_BASE_URL, LOGIN, LOGOUT } from "../utils/constants";
 
 const Login = () => {
   const [userName, setUserName] = useState("vikas@mail.com");
@@ -18,18 +19,16 @@ const Login = () => {
     try {
       setIsLoading(true);
       const response = await axios.post(
-        "http://localhost:7777/auth/login",
+        APP_BASE_URL + LOGIN,
         {
           email: userName,
           password: userPassword,
         },
         { withCredentials: true }
       );
-      console.log("auth response:", response);
 
       if (response.status === 200) {
         // Handle successful login
-        console.log("Login successful:", response.data);
         setErrorMessage("");
         dispatch(addUser(response.data.user));
         navigate("/");

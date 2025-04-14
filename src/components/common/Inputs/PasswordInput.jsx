@@ -28,7 +28,7 @@ const PasswordInput = ({ value, setValue }) => {
           type="password"
           required
           placeholder="Password"
-          minlength="4"
+          minLength="4"
           pattern="(?=.*[a-zA-Z]).{4,}"
           title="Must be more than 4 characters, including number, lowercase letter, uppercase letter"
         />
