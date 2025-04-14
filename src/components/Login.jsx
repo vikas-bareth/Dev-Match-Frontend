@@ -35,7 +35,9 @@ const Login = () => {
       }
     } catch (error) {
       console.error("Login failed:", error);
-      setErrorMessage("Invalid credentials or server error.");
+      const errorMessage =
+        error.response.data.message || "Invalid credentials or server error.";
+      setErrorMessage(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -51,12 +53,13 @@ const Login = () => {
           }
         >
           <div className="flex-col gap-10">
-            <div className="mb-2">
+            <div className="">
               <UserNameInput value={userName} setValue={setUserName} />
             </div>
-            <div className="mb-2">
+            <div className="">
               <PasswordInput value={userPassword} setValue={setUserPassword} />
             </div>
+            {errorMessage && <p className=" text-red-700">{errorMessage}</p>}
             <div className="mt-10 text-center">
               <button className="btn btn-primary" onClick={handleLoginClick}>
                 Login

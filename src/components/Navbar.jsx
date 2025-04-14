@@ -1,18 +1,20 @@
 import React from "react";
 import ThemeController from "./common/ThemeController";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { removeUser } from "../utils/userSlice";
 import { APP_BASE_URL, LOGOUT } from "../utils/constants";
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleLogout = async () => {
     const response = await axios.get(APP_BASE_URL + LOGOUT, {
       withCredentials: true,
     });
     dispatch(removeUser());
+    navigate("/login");
   };
 
   const user = useSelector((state) => state.user);
@@ -92,9 +94,7 @@ const Navbar = () => {
                 <a>Settings</a>
               </li>
               <li>
-                <Link to={"/login"} onClick={handleLogout}>
-                  Logout
-                </Link>
+                <Link onClick={handleLogout}>Logout</Link>
               </li>
               <li>
                 <a>
