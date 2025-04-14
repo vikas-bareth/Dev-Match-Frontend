@@ -1,19 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import axios from "axios";
+import { APP_BASE_URL, UPDATE_USER } from "../utils/constants";
+import Toast from "./common/Toast";
 
 const EditProfile = ({ user }) => {
   const dispatch = useDispatch();
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("Data Send success!");
   const { firstName, lastName, emailId, age, gender, photoUrl, about, skills } =
     user;
 
-  // Handle input changes
   const handleChange = (field, value) => {
     dispatch(addUser({ ...user, [field]: value }));
   };
 
+  const handleSaveClick = async (user) => {
+    setShowToast(true);
+    const result = await axios.patch(
+      APP_BASE_URL + UPDATE_USER,
+      { user },
+      { withCredentials: true }
+    );
+    const { data } = result.data;
+    dispatch(addUser(data));
+
+    setTimeout(() => setShowToast(false), 3000);
+  };
+
   return (
     <div className="p-6 max-w-4xl  bg-gray-900 text-gray-100 shadow-lg rounded-lg">
+      {!setShowToast && <Toast message={toastMessage} />}
       <h1 className="text-2xl font-bold mb-6 text-gray-100">Edit Profile</h1>
 
       <div className="flex items-center mb-6">
@@ -170,7 +188,10 @@ const EditProfile = ({ user }) => {
         <button className="bg-gray-700 text-gray-300 px-4 py-2 rounded-md mr-2 hover:bg-gray-600">
           Cancel
         </button>
-        <button className="bg-blue-500 text-gray-100 px-4 py-2 rounded-md hover:bg-blue-600">
+        <button
+          onClick={() => handleSaveClick(user)}
+          className="bg-blue-500 text-gray-100 px-4 py-2 rounded-md hover:bg-blue-600"
+        >
           Save Changes
         </button>
       </div>

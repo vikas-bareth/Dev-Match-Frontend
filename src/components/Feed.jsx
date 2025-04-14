@@ -12,7 +12,6 @@ const Feed = () => {
     const feedUsersResponse = await axios.get(APP_BASE_URL + GET_FEED, {
       withCredentials: true,
     });
-    console.log("feedResponse:", feedUsersResponse.data);
     dispatch(addFeed(feedUsersResponse.data));
   };
   useEffect(() => {
