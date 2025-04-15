@@ -5,3 +5,5 @@ export const GET_USER = "/auth/user";
 export const UPDATE_USER = "/auth/user";
 
 export const GET_FEED = "/user/feed";
+export const GET_CONNECTIONS = "/user/connections";
+export const GET_CONNECTION_REQUESTS = "/user/requests";
