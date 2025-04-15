@@ -29,7 +29,7 @@ const Navbar = () => {
         withCredentials: true,
       }
     );
-    setTotalRequests(userRequests.data.length);
+    setTotalRequests(userRequests.data.length - 0);
   };
 
   useEffect(() => {
