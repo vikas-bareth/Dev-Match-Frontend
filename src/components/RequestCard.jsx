@@ -29,8 +29,8 @@ const RequestCard = ({ request }) => {
           )}
         </ul>
         <div className="card-actions mt-4 flex space-x-2">
-          <button className="btn btn-primary btn-xs">Accept</button>
           <button className="btn btn-secondary btn-xs">Decline</button>
+          <button className="btn btn-primary btn-xs">Accept</button>
         </div>
       </div>
     </div>

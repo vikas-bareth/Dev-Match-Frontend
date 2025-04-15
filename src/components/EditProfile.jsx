@@ -3,12 +3,11 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import axios from "axios";
 import { APP_BASE_URL, UPDATE_USER } from "../utils/constants";
-import Toast from "./common/Toast";
+import { useBadge } from "../context/BadgeContext";
 
 const EditProfile = ({ user }) => {
   const dispatch = useDispatch();
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState("Data Send success!");
+  const { showBadge } = useBadge();
   const { firstName, lastName, emailId, age, gender, photoUrl, about, skills } =
     user;
 
@@ -17,21 +16,26 @@ const EditProfile = ({ user }) => {
   };
 
   const handleSaveClick = async (user) => {
-    setShowToast(true);
-    const result = await axios.patch(
-      APP_BASE_URL + UPDATE_USER,
-      { user },
-      { withCredentials: true }
-    );
-    const { data } = result.data;
-    dispatch(addUser(data));
+    try {
+      const result = await axios.patch(
+        APP_BASE_URL + UPDATE_USER,
+        { user },
+        { withCredentials: true }
+      );
 
-    setTimeout(() => setShowToast(false), 3000);
+      const { data } = result.data;
+      dispatch(addUser(data));
+      showBadge(result.data.message, "success");
+    } catch (error) {
+      showBadge(
+        error.response?.data?.message || "Failed to update profile.",
+        "error"
+      );
+    }
   };
 
   return (
     <div className="p-6 max-w-4xl  bg-gray-900 text-gray-100 shadow-lg rounded-lg">
-      {!setShowToast && <Toast message={toastMessage} />}
       <h1 className="text-2xl font-bold mb-6 text-gray-100">Edit Profile</h1>
 
       <div className="flex items-center mb-6">
