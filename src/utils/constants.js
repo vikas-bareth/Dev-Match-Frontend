@@ -3,6 +3,7 @@ export const LOGIN = "/auth/login";
 export const LOGOUT = "/auth/logout";
 export const GET_USER = "/auth/user";
 export const UPDATE_USER = "/auth/user";
+export const SIGNUP = "/auth/signup";
 
 export const GET_FEED = "/user/feed";
 export const GET_CONNECTIONS = "/user/connections";
